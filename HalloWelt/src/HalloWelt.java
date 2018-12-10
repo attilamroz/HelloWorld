@@ -2,8 +2,7 @@
 public class HalloWelt {
 
 	public static void main(String[] args) {
-		System.out.println("Attila Mroz");
-
+		System.out.println("Mein Name ist Attila Mroz");
 	}
 
 }
