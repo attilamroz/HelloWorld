@@ -1,6 +1,6 @@
-import java.awt.event.KeyListener;
+//import java.awt.event.KeyListener;
 
-import javax.swing.JFrame;
+//import javax.swing.JFrame;
 
 public class HalloWelt {
 
@@ -53,12 +53,12 @@ public class HalloWelt {
 		System.out.println(Double.MIN_VALUE);
 		System.out.println(Double.MAX_VALUE);
 		
-		JFrame frame = new JFrame();
+		/*JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(0, 0, 512, 512);
 		frame.setResizable(false);
 		frame.addKeyListener((KeyListener) frame);
-		frame.setVisible(true);
+		frame.setVisible(true);*/
 
 	}
 }
