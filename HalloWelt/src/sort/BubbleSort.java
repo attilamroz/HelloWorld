@@ -13,10 +13,11 @@ public class BubbleSort {
 		}
 
 		// print zahlen
+		System.out.println("Unsortiert:");
 		for (int i = 0; i < zahlen.length; i++) {
 			System.out.println(zahlen[i]);
 		}
-		System.out.println();
+		System.out.println("--------------------------------------");
 
 		// Bubblesort
 		for (int n = zahlen.length; n > 1; n--) {
@@ -30,6 +31,7 @@ public class BubbleSort {
 		}
 
 		// print zahlen
+		System.out.println("Sortiert:");
 		for (int i = 0; i < zahlen.length; i++) {
 			System.out.println(zahlen[i]);
 		}
