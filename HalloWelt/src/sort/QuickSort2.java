@@ -7,9 +7,12 @@ public class QuickSort2 {
 		int[] zahlen = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		
 		for (int i = 0; i < zahlen.length; i++) {
-			long b = Math.round(Math.random() * 50);
-			int v = (int) b;
-			zahlen[i] = v;
+			int v= 0;
+			do {
+				long b = Math.round(Math.random() * (zahlen.length -1));
+				v = (int) b;
+			} while(zahlen[v] != 0);
+			zahlen[v] = i;
 		}
 		
 		for (int i = 0; i < zahlen.length; i++) {
@@ -25,7 +28,7 @@ public class QuickSort2 {
 	public static void quicksort(int links, int rechts, int[] zahlen) {
 		if (links < rechts) {
 			int teiler = teile(links, rechts, zahlen);
-			quicksort(links, teiler - 1, zahlen);
+			quicksort(links, teiler, zahlen);
 			quicksort(teiler + 1, rechts, zahlen);
 
 		}
