@@ -9,17 +9,24 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Text;
+
+import data.Person;
+
 import org.eclipse.swt.widgets.Label;
 
 public class MyFirstWindow {
 
 	protected Shell shlAmWindow;
-	private Text vorname;
-	private Text nachname;
-	private Text plz;
-	private Text ort;
-	private Text strasse;
-	private Text hausnummer;
+	private Text vornameTF;
+	private Text nachnameTF;
+	private Label lblPlz;
+	private Label lblOrt;
+	private Label lblStrasse;
+	private Label lblHausnummer;
+	private Text plzTF;
+	private Text ortTF;
+	private Label vornameOut;
+	private Label nachnameOut;
 
 	/**
 	 * Launch the application.
@@ -67,39 +74,31 @@ public class MyFirstWindow {
 		button1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println("Vorname: " + vorname.getText());
-				System.out.println("Nachname: " + nachname.getText());
-				System.out.println("PLZ: " + plz.getText());
-				System.out.println("Ort: " + ort.getText());
-				System.out.println("Straße: " + strasse.getText());
-				System.out.println("Hausnummer: " + hausnummer.getText());
+				System.out.println("Knoppe gedrückt");
+				//
+				System.out.println(vornameTF.getText());
+				System.out.println(nachnameTF.getText());
+				//
+				getVornameOut().setText(getVornameTF().getText());
+				getNachnameOut().setText(getNachnameTF().getText());
 			}
 		});
 		button1.setBounds(10, 10, 108, 180);
 		button1.setText("Mein 1. Knopf");
 
-		vorname = new Text(shlAmWindow, SWT.BORDER);
-		vorname.setBounds(205, 10, 219, 25);
+		vornameTF = new Text(shlAmWindow, SWT.BORDER);
+		vornameTF.setBounds(205, 10, 219, 25);
 
 		Label lblVorname = new Label(shlAmWindow, SWT.NONE);
-		lblVorname.setBounds(124, 13, 75, 15);
+		lblVorname.setBounds(124, 10, 75, 15);
 		lblVorname.setText("Vorname");
 
 		Label lblNachname = new Label(shlAmWindow, SWT.NONE);
 		lblNachname.setBounds(124, 44, 75, 15);
 		lblNachname.setText("Nachname");
 
-		nachname = new Text(shlAmWindow, SWT.BORDER);
-		nachname.setBounds(205, 41, 219, 25);
-
-		plz = new Text(shlAmWindow, SWT.BORDER);
-		plz.setBounds(205, 72, 219, 25);
-
-		ort = new Text(shlAmWindow, SWT.BORDER);
-		ort.setBounds(205, 103, 219, 25);
-
-		strasse = new Text(shlAmWindow, SWT.BORDER);
-		strasse.setBounds(205, 134, 219, 25);
+		nachnameTF = new Text(shlAmWindow, SWT.BORDER);
+		nachnameTF.setBounds(205, 41, 219, 25);
 
 		Label lblPlz = new Label(shlAmWindow, SWT.NONE);
 		lblPlz.setBounds(124, 75, 75, 15);
@@ -116,9 +115,62 @@ public class MyFirstWindow {
 		Label lblHausnummer = new Label(shlAmWindow, SWT.NONE);
 		lblHausnummer.setText("Hausnummer");
 		lblHausnummer.setBounds(124, 168, 75, 15);
+		
+		plzTF = new Text(shlAmWindow, SWT.BORDER);
+		plzTF.setBounds(205, 72, 219, 25);
+		
+		ortTF = new Text(shlAmWindow, SWT.BORDER);
+		ortTF.setBounds(205, 103, 219, 25);
+		
+		vornameOut = new Label(shlAmWindow, SWT.NONE);
+		vornameOut.setBounds(205, 137, 219, 15);
+		
+		nachnameOut = new Label(shlAmWindow, SWT.NONE);
+		nachnameOut.setBounds(205, 168, 219, 15);
+		
+		Button btnSaveClean = new Button(shlAmWindow, SWT.NONE);
+		btnSaveClean.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Person p; // Variablen-Definiton
+				p = new Person(); // Variablen-Instanz
+				//
+				p.setVorname(getVornameTF().getText());
+				p.setNachname(getNachnameTF().getText());
+				//
+				System.out.println(p);
+				//
+				Person.getPersonenListe().add(p);
+				//
+				System.out.println("-----");
+				System.out.println("Liste: ");
+				System.out.println(Person.getPersonenListe());
+				//
+				getVornameTF().setText("");
+				getNachnameTF().setText("");
+			}
+		});
+		btnSaveClean.setBounds(10, 196, 108, 55);
+		btnSaveClean.setText("Save & Clean");
 
-		hausnummer = new Text(shlAmWindow, SWT.BORDER);
-		hausnummer.setBounds(205, 165, 219, 25);
-
+	}
+	
+	public Label getVornameOut() {
+		return vornameOut;
+	}
+	public Label getNachnameOut() {
+		return nachnameOut;
+	}
+	public Text getVornameTF() {
+		return vornameTF;
+	}
+	public Text getNachnameTF() {
+		return nachnameTF;
+	}
+	public Text getPlzTF() {
+		return plzTF;
+	}
+	public Text getOrtTF() {
+		return ortTF;
 	}
 }
