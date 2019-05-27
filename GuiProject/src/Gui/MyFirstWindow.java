@@ -3,12 +3,19 @@ package Gui;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
+
+import java.io.File;
+import java.io.FileWriter;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Text;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import data.Person;
 
@@ -84,7 +91,7 @@ public class MyFirstWindow {
 			}
 		});
 		button1.setBounds(10, 10, 108, 180);
-		button1.setText("Mein 1. Knopf");
+		button1.setText("Output");
 
 		vornameTF = new Text(shlAmWindow, SWT.BORDER);
 		vornameTF.setBounds(205, 10, 219, 25);
@@ -137,10 +144,16 @@ public class MyFirstWindow {
 				//
 				p.setVorname(getVornameTF().getText());
 				p.setNachname(getNachnameTF().getText());
+				p.setOrt(getOrtTF().getText());
+				p.setPlz(getPlzTF().getText());
 				//
 				System.out.println(p);
 				//
 				Person.getPersonenListe().add(p);
+				//
+				System.out.println("-----");
+				System.out.println("Objekt: ");
+				System.out.println();
 				//
 				System.out.println("-----");
 				System.out.println("Liste: ");
@@ -152,6 +165,28 @@ public class MyFirstWindow {
 		});
 		btnSaveClean.setBounds(10, 196, 108, 55);
 		btnSaveClean.setText("Save & Clean");
+		
+		Button btnjson = new Button(shlAmWindow, SWT.NONE);
+		btnjson.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Gson gson = new GsonBuilder().setPrettyPrinting().create();
+				gson.serializeNulls();
+				//
+				String jsonString = gson.toJson(Person.getPersonenListe());
+				System.out.println(jsonString);
+				//
+				try {
+					FileWriter fw = new FileWriter(File.createTempFile("wpfjson", ".json"));
+					gson.toJson(Person.getPersonenListe(), fw);
+					fw.flush();
+					fw.close();
+					//->im eplorer %TEMP%
+				} catch (Exception ex) {}
+			}
+		});
+		btnjson.setBounds(124, 196, 108, 55);
+		btnjson.setText("Export as JSON");
 
 	}
 	
