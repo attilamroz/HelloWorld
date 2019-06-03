@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 
 import org.eclipse.swt.SWT;
@@ -174,22 +175,28 @@ public class MyFirstWindow {
 		btnjson.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				Gson gson = new GsonBuilder().setPrettyPrinting().create();
-				gson.serializeNulls();
-				//
-				String jsonString = gson.toJson(Person.getPersonenListe());
-				System.out.println(jsonString);
-				//
-				//FileDialog fd = new FileDialog(shlAmWindow, SWT.SAVE);
-				//fd.getText()
-				//
-				try {
-					FileWriter fw = new FileWriter(File.createTempFile("wpfjson", ".json"));
-					gson.toJson(Person.getPersonenListe(), fw);
-					fw.flush();
-					fw.close();
-					//->im eplorer %TEMP%
-				} catch (Exception ex) {}
+				FileDialog fd = new FileDialog(shlAmWindow, SWT.SAVE);
+				fd.setFilterPath(System.getProperty("java.io.tmpdir"));
+				fd.setFilterNames(new String[] {".json (Wpf-Inf-2018/19)"});
+				fd.setFilterExtensions(new String[] {"*.json"});
+				String fileName = fd.open();
+				if (fileName != null) {
+					
+					//
+					Gson gson = new GsonBuilder().setPrettyPrinting().create();
+					gson.serializeNulls();
+					//
+					String jsonString = gson.toJson(Person.getPersonenListe());
+					System.out.println(jsonString);
+					//
+					try {
+						FileWriter fw = new FileWriter(fileName);
+						gson.toJson(Person.getPersonenListe(), fw);
+						fw.flush();
+						fw.close();
+						//->im eplorer %TEMP%
+					} catch (Exception ex) {}
+				}
 			}
 		});
 		btnjson.setBounds(0, 75, 108, 55);
