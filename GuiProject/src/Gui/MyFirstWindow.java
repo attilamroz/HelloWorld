@@ -1,6 +1,7 @@
 package Gui;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 
@@ -16,7 +17,6 @@ import org.eclipse.swt.widgets.Text;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import data.Person;
 
 import org.eclipse.swt.widgets.Label;
@@ -81,17 +81,19 @@ public class MyFirstWindow {
 		button1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println("Knoppe gedrückt");
+//				System.out.println(vornameTF.getText());
+//				System.out.println(nachnameTF.getText());
+//				System.out.println(plzTF.getText());
+//				System.out.println(ortTF.getText());
 				//
-				System.out.println(vornameTF.getText());
-				System.out.println(nachnameTF.getText());
+				System.out.println(Person.getPersonenListe());
 				//
-				getVornameOut().setText(getVornameTF().getText());
-				getNachnameOut().setText(getNachnameTF().getText());
+				//getVornameOut().setText(getVornameTF().getText());
+				//getNachnameOut().setText(getNachnameTF().getText());
 			}
 		});
-		button1.setBounds(10, 10, 108, 180);
-		button1.setText("Output");
+		button1.setBounds(0, 198, 108, 53);
+		button1.setText("Output to console");
 
 		vornameTF = new Text(shlAmWindow, SWT.BORDER);
 		vornameTF.setBounds(205, 10, 219, 25);
@@ -161,9 +163,11 @@ public class MyFirstWindow {
 				//
 				getVornameTF().setText("");
 				getNachnameTF().setText("");
+				getOrtTF().setText("");
+				getPlzTF().setText("");
 			}
 		});
-		btnSaveClean.setBounds(10, 196, 108, 55);
+		btnSaveClean.setBounds(0, 10, 108, 55);
 		btnSaveClean.setText("Save & Clean");
 		
 		Button btnjson = new Button(shlAmWindow, SWT.NONE);
@@ -176,6 +180,9 @@ public class MyFirstWindow {
 				String jsonString = gson.toJson(Person.getPersonenListe());
 				System.out.println(jsonString);
 				//
+				//FileDialog fd = new FileDialog(shlAmWindow, SWT.SAVE);
+				//fd.getText()
+				//
 				try {
 					FileWriter fw = new FileWriter(File.createTempFile("wpfjson", ".json"));
 					gson.toJson(Person.getPersonenListe(), fw);
@@ -185,8 +192,28 @@ public class MyFirstWindow {
 				} catch (Exception ex) {}
 			}
 		});
-		btnjson.setBounds(124, 196, 108, 55);
+		btnjson.setBounds(0, 75, 108, 55);
 		btnjson.setText("Export as JSON");
+		
+		Button btnImportJson = new Button(shlAmWindow, SWT.NONE);
+		btnImportJson.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				FileDialog fd = new FileDialog(shlAmWindow, SWT.OPEN);
+				fd.setFilterPath(System.getProperty("java.io.tmpdir"));
+				fd.setFilterNames(new String[] {".json (Wpf-Inf-2018/19)"});
+				fd.setFilterExtensions(new String[] {"*.json"});
+				//
+				String fileName = fd.open();
+				System.out.println(fileName);
+				//
+				if (fileName != null) {
+					Person.loadPersonenFromFile(fileName);
+				}
+			}
+		});
+		btnImportJson.setBounds(0, 137, 108, 55);
+		btnImportJson.setText("Import JSON");
 
 	}
 	
