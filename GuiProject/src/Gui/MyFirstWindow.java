@@ -27,14 +27,16 @@ public class MyFirstWindow {
 	protected Shell shlAmWindow;
 	private Text vornameTF;
 	private Text nachnameTF;
+	private Text plzTF;
+	private Text ortTF;
+	private Text strasseTF;
+	private Text hausnummerTF;
+	private Label lblVorname;
+	private Label lblNachname;
 	private Label lblPlz;
 	private Label lblOrt;
 	private Label lblStrasse;
 	private Label lblHausnummer;
-	private Text plzTF;
-	private Text ortTF;
-	private Label vornameOut;
-	private Label nachnameOut;
 
 	/**
 	 * Launch the application.
@@ -132,11 +134,11 @@ public class MyFirstWindow {
 		ortTF = new Text(shlAmWindow, SWT.BORDER);
 		ortTF.setBounds(205, 103, 219, 25);
 		
-		vornameOut = new Label(shlAmWindow, SWT.NONE);
-		vornameOut.setBounds(205, 137, 219, 15);
+		strasseTF = new Text(shlAmWindow, SWT.BORDER);
+		strasseTF.setBounds(205, 134, 219, 25);
 		
-		nachnameOut = new Label(shlAmWindow, SWT.NONE);
-		nachnameOut.setBounds(205, 168, 219, 15);
+		hausnummerTF = new Text(shlAmWindow, SWT.BORDER);
+		hausnummerTF.setBounds(205, 165, 219, 25);
 		
 		Button btnSaveClean = new Button(shlAmWindow, SWT.NONE);
 		btnSaveClean.addSelectionListener(new SelectionAdapter() {
@@ -149,6 +151,8 @@ public class MyFirstWindow {
 				p.setNachname(getNachnameTF().getText());
 				p.setOrt(getOrtTF().getText());
 				p.setPlz(getPlzTF().getText());
+				p.setStrasse(getStrasseTF().getText());
+				p.setHausnummer(getHausnummerTF().getText());
 				//
 				System.out.println(p);
 				//
@@ -166,6 +170,8 @@ public class MyFirstWindow {
 				getNachnameTF().setText("");
 				getOrtTF().setText("");
 				getPlzTF().setText("");
+				getStrasseTF().setText("");
+				getHausnummerTF().setText("");
 			}
 		});
 		btnSaveClean.setBounds(0, 10, 108, 55);
@@ -224,12 +230,6 @@ public class MyFirstWindow {
 
 	}
 	
-	public Label getVornameOut() {
-		return vornameOut;
-	}
-	public Label getNachnameOut() {
-		return nachnameOut;
-	}
 	public Text getVornameTF() {
 		return vornameTF;
 	}
@@ -241,5 +241,11 @@ public class MyFirstWindow {
 	}
 	public Text getOrtTF() {
 		return ortTF;
+	}
+	public Text getStrasseTF() {
+		return strasseTF;
+	}
+	public Text getHausnummerTF() {
+		return hausnummerTF;
 	}
 }

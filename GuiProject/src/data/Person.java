@@ -20,6 +20,8 @@ public class Person {
 	private String nachname;
 	private String plz;
 	private String ort;
+	private String strasse;
+	private String hausnummer;
 	//
 	public String getVorname() {
 		return vorname;
@@ -45,11 +47,23 @@ public class Person {
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
+	public String getStrasse() {
+		return strasse;
+	}
+	public void setStrasse(String strasse) {
+		this.strasse = strasse;
+	}
+	public String getHausnummer() {
+		return hausnummer;
+	}
+	public void setHausnummer(String hausnummer) {
+		this.hausnummer = hausnummer;
+	}
 	
 	@Override
 	public String toString() {
 		return getNachname() + ", " + getVorname() + " (" 
-				+ getPlz() + " " + getOrt() + ")";
+				+ getPlz() + " " + getOrt() + ") " + getStrasse() + " " + getHausnummer();
 	}
 	
 	public static void loadPersonenFromFile(String filename) {
